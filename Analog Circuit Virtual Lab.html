@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<!-- saved from url=(0106)file:///C:/Users/admin/Desktop/Tanu/Studies/7th%20Sem/Minor%20Project/Virtual%20Lab%20Draft%202/index.html -->
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title> Analog Circuit Virtual Lab</title>
+    <link href="styles.css" rel="stylesheet">
+</head>
+
+<body>
+    <h1> Experiment 7</h1>
+    <div class="container">
+        <h2 class="heading"> Student Details </h2>
+        <!--Student Details-->
+
+
+
+        <form class="details">
+            Name: <input type="text" placeholder="Student Name" class="name"><br>
+            Roll Number:<input type="text" placeholder="Roll Number" class="rollno"><br>
+        </form>
+    </div>
+
+    <div class="container">
+        <!--AIM-->
+        <h2 class="heading"> Aim</h2>
+        <p class="aim"> High-Speed Low Noise Comparator</p>
+        <h2 class="heading">Reference Books</h2>
+        <ol class="objective">
+            <li>Ramakant A. Gayakwad- op-amp and Linear Integrated Circuits, Pearson Education; Fourth edition. </li>
+        </ol>
+
+        <!--OBJECTIVE-->
+        <h2 class="heading"> Objective</h2>
+        <ol class="objective">
+            <li> To design and implement a Schmitt trigger as the comparator circuit for given specifications and plot
+                the hysteresis loop. </li>
+        </ol>
+    </div>
+    <div class="container">
+        <!--THEORY-->
+        <h2 class="heading"> Theory </h2>
+        <p class="theory"> </p>
+        <!--COMPONENT REQUIREMENT TABLE-->
+        <h2 class="heading"> Component Table </h2>
+        <p class="reqtable">Select the necessary equipment/apparatus/components required for this experiment and list
+            all of them in below-given space:</p>
+    </div>
+
+    <div class="container">
+        <form method="POST">
+            <table border="1" class="rtable">
+                <tbody>
+                    <tr>
+                        <th class="innertable">Name of Equipment/Components</th>
+                        <th class="innertable">Range/Value/Specification</th>
+                        <th class="innertable">Justification of the selection of each component/equipment</th>
+                    </tr>
+                    <tr>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true"></td>
+                    </tr>
+
+                    <tr>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true"></td>
+
+                    </tr>
+
+
+                    <tr>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true"></td>
+                    </tr>
+
+                    <tr>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true"></td>
+                    </tr>
+                    <tr>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true"></td>
+                    </tr>
+
+                </tbody>
+            </table> <br>
+        </form>
+
+
+        <!--PRE LAB QUIZ-->
+        <h2 class="heading"> Pre Lab Quiz</h2>
+        <p class="PLQ"> State limitation of basic open-loop comparator. </p>
+        <form action="file:///C:/action_page.php">
+            <!--https://www.codegrepper.com/code-examples/html/how+to+allow+user+to+upload+an+image+html-->
+            <label for="img" class="mcq">Select image:</label>
+            <input type="file" class="mcq" name="img" accept="image/*"> <br>
+            <input type="submit" class="imgsubmit" align="center">
+        </form>
+
+        <h2 class="heading"> Post Lab Quiz</h2>
+        <p class="PLQ"> 1. On the breadboard, implement the following circuits by each group and demonstrate it in the
+            next lab session.<br />
+            (i) Zero Crossing Detector<br />.
+            (ii) Precision Rectifier
+        </p>
+        <form action="file:///C:/action_page.php">
+            <!--https://www.codegrepper.com/code-examples/html/how+to+allow+user+to+upload+an+image+html-->
+            <label for="img" class="mcq">Select image:</label>
+            <input type="file" class="mcq" name="img" accept="image/*"> <br>
+            <input type="submit" class="imgsubmit" align="center">
+        </form>
+
+        <!--<form>
+            <strong class="q"> 1. MCQ:</strong><br>
+            <input type="radio" name="MCQ" class="mcq"> A. xyz </br>
+            <input type="radio" name="MCQ" class="mcq"> B. abc </br>
+            <input type="radio" name="MCQ" class="mcq"> C. ijk </br>
+        </form> -->
+
+
+        <!--PROCEDURE-->
+        <h2 class="heading">Procedure </h2>
+        <ol class="procedure">
+            <li>Construct the circuit, measured the quiescent points (no AC signal applied) by connecting both
+                bases to ground. Measure the DC values of (𝑉𝑐1, 𝑉𝑐2, 𝑉𝐸, 𝐼𝐵1, 𝐼𝐵2, 𝐼𝐸1, 𝐼𝐸2, 𝐼𝐸) </li>
+            <li>Connect the Analog Discovery Kit as Input source as Vin1 and Vin2.</li>
+            <li>Calculate the amount of noise in terms of percentage for the measured value of CMRR.</li>
+            <li>Optimize the value of CMRR using matching of components values.</li>
+        </ol>
+
+
+        <!--OBS TABLE-->
+        <h2 class="heading">Observations </h2>
+        <div class="container">
+            <p class="obspara"> Measuring DC Values </p>
+            <form method="POST" class="observation">
+                <table border="1" class="rtable">
+                    <tbody>
+                        <tr>
+                            <th class="innertable">Parameters </th>
+                            <th class="innertable">Theoritical Values</th>
+                            <th class="innertable">Practical Values</th>
+                        </tr>
+                        <tr>
+                            <td contenteditable="true">Upper Threshold Voltage</td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                        </tr>
+
+                        <tr>
+                            <td contenteditable="true">Lower Threshold Voltage</td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+
+                        </tr>
+
+
+                        <tr>
+                            <td contenteditable="true">Hysterisis Voltage</td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                        </tr>
+
+                    </tbody>
+                </table> <br>
+            </form>
+        </div><br>
+        <input type="Reset" value="Clear Table" class="clear" align="center">
+        <a href="./simulaltion.html">
+            <input type="Submit" value="Simulation" class="submit-simulation" align="center">
+        </a>
+        <input type="Submit" value="Submit Experiment" class="submit" align="center">
+
+
+
+    </div>
+</body>
+
+</html>

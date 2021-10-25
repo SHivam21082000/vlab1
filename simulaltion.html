@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="./simulations.css">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./sine.js"></script>
+    <title>Simulation</title>
+</head>
+
+<body>
+    <div class="sim-body">
+        <div class="img-container">
+            <img src="./circuit.jpg" alt="" srcset="">
+        </div>
+        <div class="table">
+            <!-- CSS Code: Place this code in the document's head (between the 'head' tags) -->
+            <style>
+                .GeneratedTable {
+                    text-align: center;
+                }
+
+                .input-field {
+                    border: none;
+                    text-align: center;
+                    padding: 10px;
+                    font-size: 20px;
+                }
+
+                .input-field :focus {
+                    border: none;
+                    text-align: center;
+                }
+
+                table.GeneratedTable {
+                    width: 25%;
+                    background-color: #ffffff;
+                    border-collapse: collapse;
+                    border-width: 2px;
+                    border-color: #ffcc00;
+                    border-style: solid;
+                    color: #000000;
+                }
+
+                table.GeneratedTable td,
+                table.GeneratedTable th {
+                    border-width: 2px;
+                    border-color: #ffcc00;
+                    border-style: solid;
+                    padding: 3px;
+                }
+
+                table.GeneratedTable thead {
+                    background-color: #ffcc00;
+                }
+            </style>
+
+            <!-- HTML Code: Place this code in the document's body (between the 'body' tags) where the table should appear -->
+            <table class="GeneratedTable">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Values</th>
+                        <th>Units</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>R1</td>
+                        <td><input type="text" name="" class="input-field" id="resistor-one"></td>
+                        <td>K ohm</td>
+                    </tr>
+                    <tr>
+                        <td>R2</td>
+                        <td><input type="text" name="" class="input-field" id="r2"></td>
+                        <td>K ohm</td>
+                    </tr>
+                    <tr>
+                        <td>fin</td>
+                        <td><input type="text" name="" class="input-field" id="fin"></td>
+                        <td>Hz</td>
+                    </tr>
+                    <tr>
+                        <td>Vin</td>
+                        <td><input type="text" name="" class="input-field" id="Vin"></td>
+                        <td>V</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- CSS Code: Place this code in the document's head (between the 'head' tags) -->
+            <style>
+                table.GeneratedTable {
+                    width: 15%;
+                    background-color: #ffffff;
+                    border-collapse: collapse;
+                    border-width: 2px;
+                    border-color: #a19359;
+                    border-style: solid;
+                    color: #000000;
+                }
+
+                table.GeneratedTable td,
+                table.GeneratedTable th {
+                    border-width: 2px;
+                    border-color: #a19359;
+                    border-style: solid;
+                    padding: 3px;
+                }
+
+                table.GeneratedTable thead {
+                    background-color: #ffcc00;
+                }
+            </style>
+
+            <!-- HTML Code: Place this code in the document's body (between the 'body' tags) where the table should appear -->
+            <table class="GeneratedTable">
+                <thead>
+                    <tr>
+                        <th>Voltages</th>
+                        <th>Answers</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Vuth</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Vith</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <button onclick="calculate()">Calculate</button>
+    </div>
+</body>
+
+</html>
