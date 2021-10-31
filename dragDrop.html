@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Simulation</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsPlumb/2.15.6/js/jsplumb.min.js"
+        integrity="sha512-yGgPLFnBGQP4L4+2eTbGj0uLoq+CLXmP2+c/hXWdmLYB9jEBfVGjxIqtvFneLCKATOZhDf2YPYG4uSEksWXp+g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+        integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <style>
+        #diagram,
+        #toolbox {
+            margin: 20px 0;
+            border-width: 2px;
+            border-style: solid;
+            border-color: lightgrey;
+            height: 95vh;
+        }
+
+        #toolbox {
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            /* flex-flow: row wrap;
+            align-content: flex-start; */
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .oscillator {
+            width: 100px;
+            height: auto;
+        }
+
+        .control {
+            /* border-color: green;
+            border-radius: 10px;
+            border-width: 2px;
+            border-style: solid; */
+            width: 120px;
+            text-align: center;
+            cursor: move;
+            height: fit-content;
+            height: -moz-max-content;
+            background-color: white;
+        }
+
+        .search {
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 50px 0 50px 86.6px;
+            border-color: transparent transparent transparent #007bff;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 50px 0 50px 86.6px;
+            border-color: transparent transparent transparent #007bff;
+        }
+
+        #diagram .control {
+            position: absolute;
+        }
+
+        .window {
+            z-index: 20;
+        }
+
+        .jtk-connector {
+            z-index: 4;
+        }
+
+        .jtk-endpoint {
+            z-index: 5;
+        }
+
+        .jtk-overlay {
+            z-index: 6;
+        }
+
+        .custom-menu {
+            z-index: 1000;
+            position: absolute;
+            background-color: #C0C0C0;
+            border: 1px solid black;
+            padding: 2px;
+        }
+
+        #toolbox .control {
+            margin: 10px 5px;
+        }
+
+        .ic {
+            width: 300px;
+            height: auto;
+        }
+
+        .input-field {
+            font-size: 10px;
+            text-align: center;
+        }
+
+        .graph {
+            width: 400px;
+            height: 400px;
+            /* background-color: #007bff; */
+            margin-top: 50px;
+        }
+        .graph img{
+            width: 400px;
+            height: auto;
+        }
+        .buttons{
+            position:fixed;
+            display: flex;
+            bottom: 25px;
+            align-items: center;
+            right: 30px;
+        }
+        
+    </style>
+
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-5">
+                <div id="toolbox" class="justify-content-center">
+                    <!-- <div class="control search"></div> -->
+                    <h1 style="text-align: center;">Results</h1>
+                    <div class="graph">
+                        <img src="./graph.jfif" alt="" srcset="">       
+                    </div>
+                    <h2>Vuth = 7.5</h2>
+                    <h2>Vlth = -7.5</h2>
+                    <!-- <div class="control filter"><img src="./r2.jpg" alt="" srcset=""></div> -->
+                </div>
+            </div>
+            <div class="col-md-7">
+                <div id="diagram" style="height: 95vh; position: relative">
+                    <h1 style="text-align: center;">Simulation Space</h1>
+                    <!-- <div id="control1" class="control" style="left: 50px; top: 50px">Control 1</div>
+                    <div id="control2" class="control" style="left: 300px; top: 200px">Control 2</div> -->
+                    <div class="control filter" id='vout' style="left: 62px; top: 87px;">
+                        <img class='oscillator' src="./pic1.jpg" alt="" srcset="">
+                    </div>
+                    <div class="control filter" id='semi' style="left: 152px; top: 270px;" class='ic'>
+                        <img src="./ic.png" alt="" srcset="">
+                    </div>
+                    <div class="control filter" id='r2' style="left: 33px; top: 195px;">
+                        <img class='oscillator' src="./r2.png" alt="" srcset="">
+                        <input type="text" name="" id="" class="input-field" placeholder="Value of R2 in K ohms">
+                    </div>
+                    <div class="control filter" id='r1' style="left: 253px; top: 88px;">
+                        <img class='oscillator' src="./r2.png" alt="" srcset="">
+                        <input type="text" name="" id="" class="input-field" placeholder="Value of R1 in K ohms">
+                    </div>
+                    <div class="control filter" id='ground' style="left: 419px; top: 105px;">
+                        <img class='oscillator' src="./ground.png" alt="" srcset="">
+                    </div>
+                    <div class="ip control filter" id='ip' style="left: 396px; top: 192px;">
+                        <img class='oscillator' src="./ip.png" alt="" srcset="">
+                        <input type="text" name="" id="" class="input-field" placeholder="Enter Input Voltage">
+                    </div>
+                    <div class="control filter" id='vcc' style="left: 221px; top: 204px;">
+                        <img class='oscillator' src="./vcc.png" alt="" srcset="">
+                    </div>
+                    <div class="control filter" id='ground-symbol' style="left: 61px; top: 508px;">
+                        <img class='oscillator' src="./ground-symbol.png" alt="" srcset="">
+                    </div>
+                    <div class="buttons">
+                        <button style="margin-right: 20px; border-radius: 7px;">Calculate</button>
+                        <button onclick="window.location.reload();" style="border-radius: 7px;">Reset</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+
+            // https://stackoverflow.com/a/2117523
+            function uuidv4() {
+                return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+                    return v.toString(16);
+                });
+            }
+            instance = jsPlumb.getInstance({});
+            instance.setContainer("diagram");
+            instance.bind("ready", function () {
+                instance.registerConnectionTypes({
+                    "red-connection": {
+                        paintStyle: { stroke: "red", strokeWidth: 3 },
+                        hoverPaintStyle: { stroke: "red", strokeWidth: 6 },
+                        connector: "Flowchart"
+                    }
+                });
+                instance.draggable("control1", { "containment": true });
+                instance.draggable("control2", { "containment": true })
+                instance.draggable("vout", { "containment": true })
+                instance.draggable("semi", { "containment": true })
+                instance.draggable("r1", { "containment": true })
+                instance.draggable("r2", { "containment": true })
+                instance.draggable("ground", { "containment": true })
+                instance.draggable("ip", { "containment": true })
+                instance.draggable("vcc", { "containment": true })
+                instance.draggable("ground-symbol", { "containment": true })
+                // instance.draggable("diode", { "containment": true })
+                // instance.addEndpoint("control1", {
+                //     endpoint: "Dot",  // rectangle, blank, image
+                //     anchor: ["BottomLeft"],
+                //     isSource: true,
+                //     connectionType: "red-connection"
+                // });
+                instance.addEndpoint("vout", {
+                    endpoint: "Dot",  // rectangle, blank, image
+                    anchor: ["Left"],
+                    isTarget: true,
+                    connectionType: "red-connection",
+                    maxConnections: 3
+                });
+                instance.addEndpoint("ground-symbol", {
+                    endpoint: "Dot",  // rectangle, blank, image
+                    anchor: ["Top"],
+                    isTarget: true,
+                    connectionType: "red-connection",
+                    maxConnections: 10
+                });
+                instance.addEndpoint("r1", {
+                    endpoint: "Dot",  // rectangle, blank, image
+                    anchor: ["Left"],
+                    isSource: true,
+                    connectionType: "red-connection"
+                });
+                instance.addEndpoint("r1", {
+                    endpoint: "Dot",  // rectangle, blank, image
+                    anchor: ["Right"],
+                    isSource: true,
+                    connectionType: "red-connection"
+                });
+                instance.addEndpoint("semi", {
+                    endpoint: "Dot",  // rectangle, blank, image
+                    anchor: [0.5, 0.43, -1, 0],
+                    isTarget: true,
+                    connectionType: "red-connection"
+                });
+                instance.addEndpoint("semi", {
+                    endpoint: "Dot",  // rectangle, blank, image
+                    anchor: [0.5, 0.58, -1, 0],
+                    isTarget: true,
+                    connectionType: "red-connection"
+                });
+                instance.addEndpoint("semi", {
+                    endpoint: "Dot",  // rectangle, blank, image
+                    anchor: [1.08, 0.76, 0, 1],
+                    isTarget: true,
+                    connectionType: "red-connection"
+                });
+                instance.addEndpoint("semi", {
+                    endpoint: "Dot",  // rectangle, blank, image
+                    anchor: [1.08, 0.25, 0, -1],
+                    isTarget: true,
+                    connectionType: "red-connection"
+                });
+                instance.addEndpoint("semi", {
+                    endpoint: "Dot",  // rectangle, blank, image
+                    anchor: [1.62, 0.5, -1, 0],
+                    isSource: true,
+                    connectionType: "red-connection"
+                });
+                instance.addEndpoint("vcc", {
+                    endpoint: "Dot",  // rectangle, blank, image
+                    anchor: ["Bottom"],
+                    isSource: true,
+                    connectionType: "red-connection"
+                });
+                instance.addEndpoint("ground", {
+                    endpoint: "Dot",  // rectangle, blank, image
+                    anchor: ["Top"],
+                    isSource: true,
+                    connectionType: "red-connection"
+                });
+                instance.addEndpoint("ip", {
+                    endpoint: "Dot",  // rectangle, blank, image
+                    anchor: ["Right"],
+                    isSource: true,
+                    connectionType: "red-connection"
+                });
+                instance.addEndpoint("ip", {
+                    endpoint: "Dot",  // rectangle, blank, image
+                    anchor: ["Left"],
+                    isSource: true,
+                    connectionType: "red-connection"
+                })
+                instance.addEndpoint("r2", {
+                    endpoint: "Dot",  // rectangle, blank, image
+                    anchor: ["Right"],
+                    isSource: true,
+                    connectionType: "red-connection"
+                })
+                instance.addEndpoint("r2", {
+                    endpoint: "Dot",  // rectangle, blank, image
+                    anchor: ["Left"],
+                    isSource: true,
+                    connectionType: "red-connection"
+                })
+
+                // instance.addEndpoint("control1", {
+                //     endpoint: "Dot",  // rectangle, blank, image
+                //     anchor: ["Top"],
+                //     isSource: true,
+                //     connectionType: "red-connection"
+                // });
+                // instance.addEndpoint("control1", {
+                //     endpoint: "Dot",  // rectangle, blank, image
+                //     anchor: ["Bottom"],
+                //     isSource: true,
+                //     connectionType: "red-connection"
+                // });
+                // instance.addEndpoint("control1", {
+                //     endpoint: "Dot",  // rectangle, blank, image
+                //     anchor: ["Right"],
+                //     isSource: true,
+                //     connectionType: "red-connection"
+                // });
+                // instance.addEndpoint("control1", {
+                //     endpoint: "Dot",  // rectangle, blank, image
+                //     anchor: ["RightMiddle"],
+                //     isSource: true,
+                //     connectionType: "red-connection"
+                // });
+                // instance.addEndpoint("control2", {
+                //     endpoint: "Dot",
+                //     anchor: ["LeftMiddle"],
+                //     isTarget: true,
+                //     connectionType: "red-connection"
+                // });
+                // instance.addEndpoint("control2", {
+                //     endpoint: "Dot",
+                //     anchor: ["Right"],
+                //     isTarget: true,
+                //     connectionType: "red-connection"
+                // });
+                // instance.addEndpoint("diode", {
+                //     endpoint: "Dot",
+                //     anchor: ["Bottom"],
+                //     isTarget: true,
+                //     connectionType: "red-connection"
+                // });
+                // instance.addEndpoint("diode", {
+                //     endpoint: "Dot",
+                //     anchor: ["Top"],
+                //     isTarget: true,
+                //     connectionType: "red-connection"
+                // });
+                // instance.addEndpoint("diode", {
+                //     endpoint: "Dot",
+                //     anchor: ["Right"],
+                //     isTarget: true,
+                //     connectionType: "red-connection"
+                // });
+                // instance.addEndpoint("diode", {
+                //     endpoint: "Dot",
+                //     anchor: ["Left"],
+                //     isTarget: true,
+                //     connectionType: "red-connection"
+                // });
+                // instance.addEndpoint("diode", {
+                //     endpoint: "Dot",
+                //     anchor: ["LeftMiddle"],
+                //     isTarget: true,
+                //     connectionType: "red-connection"
+                // });
+
+                // https://stackoverflow.com/a/4502207
+                instance.bind("contextmenu", function (component, event) {
+                    if (component.hasClass("jtk-connector")) {
+                        event.preventDefault();
+                        window.selectedConnection = component;
+                        $("<div class='custom-menu'><button class='delete-connection'>Delete connection</button></div>")
+                            .appendTo("body")
+                            .css({ top: event.pageY + "px", left: event.pageX + "px" });
+                    }
+                });
+                $("body").on("click", ".delete-connection", function (event) {
+                    instance.deleteConnection(window.selectedConnection);
+                });
+
+                $(document).bind("click", function (event) {
+                    $("div.custom-menu").remove();
+                });
+
+                $("body").on("contextmenu", "#diagram .control", function (event) {
+                    event.preventDefault();
+                    window.selectedControl = $(this).attr("id");
+                    $("<div class='custom-menu'><button class='delete-control'>Delete control</button></div>")
+                        .appendTo("body")
+                        .css({ top: event.pageY + "px", left: event.pageX + "px" });
+                });
+
+                $("body").on("click", ".delete-control", function (event) {
+                    instance.remove(window.selectedControl);
+                });
+
+                $("#toolbox .control").draggable({
+                    helper: "clone",
+                    containment: "body",
+                    appendTo: "#diagram"
+                });
+
+                $("#diagram").droppable({
+                    drop: function (event, ui) {
+                        var id = uuidv4();
+                        var clone = $(ui.helper).clone(true);
+                        clone.attr("id", id);
+                        clone.appendTo(this);
+                        instance.draggable(id, { containment: true });
+
+                        instance.addEndpoint(id, {
+                            endpoint: "Dot",
+                            anchor: ["RightMiddle"],
+                            isSource: true,
+                            connectionType: "red-connection"
+                        });
+
+                        instance.addEndpoint(id, {
+                            endpoint: "Dot",
+                            anchor: ["LeftMiddle"],
+                            isTarget: true,
+                            connectionType: "red-connection"
+                        });
+                    }
+                })
+
+            });
+        </script>
+</body>
+
+</html>
